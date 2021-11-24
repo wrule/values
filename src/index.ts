@@ -65,4 +65,19 @@ class values {
       )
     );
   }
+
+  public EMA(size: number) {
+    const nsize = this.normalizeSize(size);
+    const weight = 2 / (nsize + 1);
+    const result: number[] = [];
+    this.nums.forEach((num, index) => {
+      let prevEMA = result[index - 1];
+      if (prevEMA == null) {
+        prevEMA = num;
+      }
+      const newEMA = num * weight + prevEMA * (1 - weight);
+      result.push(newEMA);
+    });
+    return new values(result);
+  }
 }
