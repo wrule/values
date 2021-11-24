@@ -84,6 +84,23 @@ class nums {
     slow: number,
     size: number,
   ) {
+    const fastNums = this.MA(fast).nums;
+    const slowNums = this.MA(slow).nums;
+    const DIFNums = fastNums.map((num, index) => num - slowNums[index]);
+    const DEANums = new nums(DIFNums).MA(size).nums;
+    const MACDNums = DIFNums.map((num, index) => num - DEANums[index]);
+    return {
+      DIF: new nums(DIFNums),
+      DEA: new nums(DEANums),
+      MACD: new nums(MACDNums),
+    };
+  }
+
+  public EMACD(
+    fast: number,
+    slow: number,
+    size: number,
+  ) {
     const fastNums = this.EMA(fast).nums;
     const slowNums = this.EMA(slow).nums;
     const DIFNums = fastNums.map((num, index) => num - slowNums[index]);
