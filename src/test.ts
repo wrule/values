@@ -1,5 +1,4 @@
 import { nums } from './index';
 
-const v = new nums([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-console.log(v.MA(2));
-console.log(v.EMA(2));
+const v = new nums([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 9, 10, 9, 8, 7, 6]);
+console.log(v.MACD(2, 4, 3).MACD);
