@@ -1,9 +1,13 @@
 
 export
-class nums {
+class Nums {
   public constructor(
     private nums: number[],
   ) { }
+
+  public get Nums() {
+    return this.nums.slice();
+  }
 
   private normalizeEndStart(
     end?: number,
@@ -23,7 +27,7 @@ class nums {
 
   public slice(end?: number, start?: number) {
     const [iend, istart] = this.normalizeEndStart(end, start);
-    return new nums(this.nums.slice(istart, iend));
+    return new Nums(this.nums.slice(istart, iend));
   }
 
   public min(end?: number, start?: number) {
@@ -48,8 +52,8 @@ class nums {
     return sum / slice.length;
   }
 
-  public concat(vals: nums) {
-    return new nums(this.nums.concat(vals.nums));
+  public concat(nums: Nums) {
+    return new Nums(this.nums.concat(nums.nums));
   }
 
   public push(num: number) {
@@ -58,7 +62,7 @@ class nums {
 
   public MA(size: number) {
     const nsize = this.normalizeSize(size);
-    return new nums(
+    return new Nums(
       this.nums.map((num, index) =>
         this.avg(index + 1, index - nsize + 1)
       )
@@ -76,7 +80,7 @@ class nums {
       }
       result.push(num * weight + prevEMA * (1 - weight));
     });
-    return new nums(result);
+    return new Nums(result);
   }
 
   public MACD(
@@ -87,12 +91,12 @@ class nums {
     const fastNums = this.MA(fast).nums;
     const slowNums = this.MA(slow).nums;
     const DIFNums = fastNums.map((num, index) => num - slowNums[index]);
-    const DEANums = new nums(DIFNums).MA(size).nums;
+    const DEANums = new Nums(DIFNums).MA(size).nums;
     const MACDNums = DIFNums.map((num, index) => num - DEANums[index]);
     return {
-      DIF: new nums(DIFNums),
-      DEA: new nums(DEANums),
-      MACD: new nums(MACDNums),
+      DIF: new Nums(DIFNums),
+      DEA: new Nums(DEANums),
+      MACD: new Nums(MACDNums),
     };
   }
 
@@ -104,12 +108,17 @@ class nums {
     const fastNums = this.EMA(fast).nums;
     const slowNums = this.EMA(slow).nums;
     const DIFNums = fastNums.map((num, index) => num - slowNums[index]);
-    const DEANums = new nums(DIFNums).EMA(size).nums;
+    const DEANums = new Nums(DIFNums).EMA(size).nums;
     const MACDNums = DIFNums.map((num, index) => num - DEANums[index]);
     return {
-      DIF: new nums(DIFNums),
-      DEA: new nums(DEANums),
-      MACD: new nums(MACDNums),
+      DIF: new Nums(DIFNums),
+      DEA: new Nums(DEANums),
+      MACD: new Nums(MACDNums),
     };
   }
+}
+
+export
+function nums(nums: number[]) {
+  return new Nums(nums);
 }
