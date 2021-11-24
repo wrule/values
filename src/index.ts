@@ -46,4 +46,8 @@ class values {
     const nums = this.nums.concat(vals.nums);
     return new values(nums);
   }
+
+  public push(num: number) {
+    this.nums.push(num);
+  }
 }
