@@ -27,18 +27,18 @@ class values {
   }
 
   public min(end?: number, start?: number) {
-    return new values([Math.min(...this.slice(end, start).nums)]);
+    return Math.min(...this.slice(end, start).nums);
   }
 
   public max(end?: number, start?: number) {
-    return new values([Math.max(...this.slice(end, start).nums)]);
+    return Math.max(...this.slice(end, start).nums);
   }
 
   public sum(end?: number, start?: number) {
     const slice = this.slice(end, start).nums;
     let sum = 0;
     slice.forEach((num) => sum += num);
-    return new values([sum]);
+    return sum;
   }
 
   public avg(end?: number, start?: number) {
