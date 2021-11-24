@@ -10,9 +10,15 @@ class values {
     start?: number,
   ) {
     return [
-      end != null ? end : this.nums.length,
-      start != null ? start : 0,
+      (end != null) ? end : this.nums.length,
+      (start != null && start >= 0) ? start : 0,
     ];
+  }
+
+  private normalizeSize(
+    size: number,
+  ) {
+    return size < 1 ? 1 : Math.floor(size);
   }
 
   public slice(end?: number, start?: number) {
@@ -39,7 +45,7 @@ class values {
     const slice = this.slice(end, start).nums;
     let sum = 0;
     slice.forEach((num) => sum += num);
-    return new values([sum / slice.length]);
+    return sum / slice.length;
   }
 
   public concat(vals: values) {
@@ -49,5 +55,14 @@ class values {
 
   public push(num: number) {
     this.nums.push(num);
+  }
+
+  public MA(size: number) {
+    const nsize = this.normalizeSize(size);
+    return new values(
+      this.nums.map((num, index) =>
+        this.avg(index + 1, index - nsize + 1)
+      )
+    );
   }
 }
