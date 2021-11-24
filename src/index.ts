@@ -1,6 +1,6 @@
 
 export
-class values {
+class nums {
   public constructor(
     private nums: number[],
   ) { }
@@ -23,7 +23,7 @@ class values {
 
   public slice(end?: number, start?: number) {
     const [iend, istart] = this.normalizeEndStart(end, start);
-    return new values(this.nums.slice(istart, iend));
+    return new nums(this.nums.slice(istart, iend));
   }
 
   public min(end?: number, start?: number) {
@@ -48,9 +48,8 @@ class values {
     return sum / slice.length;
   }
 
-  public concat(vals: values) {
-    const nums = this.nums.concat(vals.nums);
-    return new values(nums);
+  public concat(vals: nums) {
+    return new nums(this.nums.concat(vals.nums));
   }
 
   public push(num: number) {
@@ -59,7 +58,7 @@ class values {
 
   public MA(size: number) {
     const nsize = this.normalizeSize(size);
-    return new values(
+    return new nums(
       this.nums.map((num, index) =>
         this.avg(index + 1, index - nsize + 1)
       )
@@ -75,9 +74,8 @@ class values {
       if (prevEMA == null) {
         prevEMA = num;
       }
-      const newEMA = num * weight + prevEMA * (1 - weight);
-      result.push(newEMA);
+      result.push(num * weight + prevEMA * (1 - weight));
     });
-    return new values(result);
+    return new nums(result);
   }
 }
