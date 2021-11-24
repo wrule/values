@@ -78,4 +78,21 @@ class nums {
     });
     return new nums(result);
   }
+
+  public MACD(
+    fast: number,
+    slow: number,
+    size: number,
+  ) {
+    const fastNums = this.EMA(fast).nums;
+    const slowNums = this.EMA(slow).nums;
+    const DIFNums = fastNums.map((num, index) => num - slowNums[index]);
+    const DEANums = new nums(DIFNums).EMA(size).nums;
+    const MACDNums = DIFNums.map((num, index) => num - DEANums[index]);
+    return {
+      DIF: new nums(DIFNums),
+      DEA: new nums(DEANums),
+      MACD: new nums(MACDNums),
+    };
+  }
 }
