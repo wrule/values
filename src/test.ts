@@ -1,2 +1,4 @@
+import { values } from './index';
 
-console.log('测试代码');
+const v = new values([1, 2, 3, 4]);
+console.log(v.sum(2));
